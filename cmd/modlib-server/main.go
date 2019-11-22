@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/eliben/modlib"
-	"github.com/eliben/modlib/internal/auth"
-	"github.com/eliben/modlib/serverlib"
+	"github.com/vizicist/gospout"
+	"github.com/vizicist/gospout/internal/auth"
+	"github.com/vizicist/gospout/serverlib"
 )
 
 func main() {
 	fmt.Println("Running server")
-	fmt.Println("Config:", modlib.Config())
+	fmt.Println("Config:", gospout.Config())
 	fmt.Println("Auth:", auth.GetAuth())
 	fmt.Println(serverlib.Hello())
 }

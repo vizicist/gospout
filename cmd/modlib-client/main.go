@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/eliben/modlib"
-	"github.com/eliben/modlib/clientlib"
+	"github.com/vizicist/gospout"
+	"github.com/vizicist/gospout/clientlib"
 )
 
 func main() {
 	fmt.Println("Running client")
-	fmt.Println("Config:", modlib.Config())
+	fmt.Println("Config:", gospout.Config())
 	fmt.Println(clientlib.Hello())
 }
