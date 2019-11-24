@@ -25,3 +25,9 @@ func CreateSender(name string, width int, height int) Sender {
 func SendTexture(s Sender, texture uint32, width int, height int) bool {
 	return cspout.SendTexture(s.sender, texture, width, height)
 }
+
+// CreateReceiver creates a Receiver
+func CreateReceiver(name string, width *int, height *int, bUseActive bool) bool {
+	b := cspout.CreateReceiver(name, width, height, bUseActive)
+	return b
+}
