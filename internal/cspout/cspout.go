@@ -39,3 +39,15 @@ func SendTexture(s Sender, texture uint32, width int, height int) bool {
         return b
 }
 
+// CreateReceiver creates a receiver
+func CreateReceiver(name string, width *int, height *int, bUseActive bool) bool {
+        var cname = C.CString(name)
+        var w uint
+        var h uint
+        wp := (*C.uint)(unsafe.Pointer(&w))
+        hp := (*C.uint)(unsafe.Pointer(&h))
+        cb := C.GoCreateReceiver(cname, wp, hp, C.bool(bUseActive));
+        C.free(unsafe.Pointer(cname))
+        var b bool = bool(cb)
+        return b
+}

@@ -130,8 +130,8 @@ func main() {
 	var squareWidth = 512
 	var squareHeight = 512
 
-	squareSender := gospout.CreateSender("gosquare", squareWidth, squareHeight)
-	_ = squareSender
+	squareReceiver := gospout.CreateReceiver("gosquare", &squareWidth, &squareHeight, true)
+	_ = squareReceiver
 
 	screenSender := gospout.CreateSender("goscreen", windowWidth, windowHeight)
 	_ = screenSender
@@ -164,9 +164,9 @@ func main() {
 		gl.CopyTexSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 0, 0, windowWidth, windowHeight)
 		gl.BindTexture(gl.TEXTURE_2D, 0)
 
-		gospout.SendTexture(squareSender, squaretexture, squareWidth, squareHeight)
+		// gospout.SendTexture(squareSender, squaretexture, squareWidth, squareHeight)
 
-		gospout.SendTexture(screenSender, screentexture, windowWidth, windowHeight)
+		// gospout.SendTexture(screenSender, screentexture, windowWidth, windowHeight)
 
 		// Maintenance
 		window.SwapBuffers()
