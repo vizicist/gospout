@@ -8,7 +8,6 @@ extern "C" {
 SpoutReceiver r;
 
 GoSpoutSender GoCreateSender(const char* sendername, int width, int height) {
-	fprintf(stderr,"HI FROM GoCreateSender!!\n");
 	SpoutSender* s = new SpoutSender;
 	s->CreateSender(sendername,width,height);
 	GoSpoutSender gss = (GoSpoutSender)s;
