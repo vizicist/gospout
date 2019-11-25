@@ -85,24 +85,6 @@ func main() {
 
 	gl.BindFragDataLocation(program, 0, gl.Str("outputColor\x00"))
 
-	// Load the texture
-	squaretexture, err := newTexture("square.png")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	square3texture, err := newTexture("square3.png")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	_ = square3texture
-
-	// screentexture, err := newBlankTexture(windowWidth, windowHeight)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
-	// _ = screentexture
-
 	// Configure the vertex data
 	var vao uint32
 	gl.GenVertexArrays(1, &vao)
@@ -129,7 +111,6 @@ func main() {
 	var receiverWidth int
 	var receiverHeight int
 
-	// var sendername = "gosquare"
 	var sendername = "goscreen"
 
 	receiver := gospout.CreateReceiver(sendername, &receiverWidth, &receiverHeight, false)
@@ -149,11 +130,6 @@ func main() {
 
 		gl.BindVertexArray(vao)
 
-		gl.ActiveTexture(gl.TEXTURE0)
-		gl.BindTexture(gl.TEXTURE_2D, squaretexture)
-
-		// gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
-
 		var w int = receiverWidth
 		var h int = receiverHeight
 		var textureID int = int(blanktexture)
@@ -166,14 +142,10 @@ func main() {
 			if !b {
 				receiver = false
 			}
-			// gl.BindTexture(gl.TEXTURE_2D, square3texture)
+			gl.ActiveTexture(gl.TEXTURE0)
 			gl.BindTexture(gl.TEXTURE_2D, blanktexture)
 			gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
 		}
-
-		// gospout.SendTexture(squareSender, squaretexture, squareWidth, receiverHeight)
-
-		// gospout.SendTexture(screenSender, screentexture, windowWidth, windowHeight)
 
 		// Maintenance
 		window.SwapBuffers()
