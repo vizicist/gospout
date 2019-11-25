@@ -27,7 +27,13 @@ func SendTexture(s Sender, texture uint32, width int, height int) bool {
 }
 
 // CreateReceiver creates a Receiver
-func CreateReceiver(name string, width *int, height *int, bUseActive bool) bool {
-	b := cspout.CreateReceiver(name, width, height, bUseActive)
+func CreateReceiver(sendername string, width *int, height *int, bUseActive bool) bool {
+	b := cspout.CreateReceiver(sendername, width, height, bUseActive)
+	return b
+}
+
+// ReceiveTexture receives a texture
+func ReceiveTexture(sendername string, width *int, height *int, textureID int, textureTarget int, bInvert bool, hostFBO int) bool {
+	b := cspout.ReceiveTexture(sendername, width, height, textureID, textureTarget, bInvert, hostFBO)
 	return b
 }

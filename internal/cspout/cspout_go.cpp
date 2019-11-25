@@ -5,12 +5,12 @@
 
 extern "C" {
 
-// SpoutSender* S;
 SpoutReceiver r;
 
-GoSpoutSender GoCreateSender(const char* name, int width, int height) {
+GoSpoutSender GoCreateSender(const char* sendername, int width, int height) {
+	fprintf(stderr,"HI FROM GoCreateSender!!\n");
 	SpoutSender* s = new SpoutSender;
-	s->CreateSender(name,width,height);
+	s->CreateSender(sendername,width,height);
 	GoSpoutSender gss = (GoSpoutSender)s;
 	return gss;
 }
@@ -20,11 +20,23 @@ bool GoSendTexture(GoSpoutSender gss, unsigned int texture, int width, int heigh
 	return s->SendTexture(texture,GL_TEXTURE_2D,width,height);
 }
 
-bool GoCreateReceiver(char* name, unsigned int* width, unsigned int *height, bool bUseActive) {
+bool GoCreateReceiver(char* sendername, unsigned int* width, unsigned int *height, bool bUseActive) {
 	bool b;
-	unsigned int w;
-	unsigned int h;
-	b = r.CreateReceiver(name,w,h,bUseActive);
+	unsigned int w = *width;
+	unsigned int h = *height;
+	b = r.CreateReceiver(sendername,w,h,bUseActive);
+	if ( b ) {
+		*width = w;
+		*height = h;
+	}
+	return b;
+}
+
+bool GoReceiveTexture(char* sendername, unsigned int* width, unsigned int *height, int textureID, int textureTarget, bool bInvert, int hostFBO) {
+	bool b;
+	unsigned int w = *width;
+	unsigned int h = *height;
+	b = r.ReceiveTexture(sendername,w,h,textureID,textureTarget,bInvert,hostFBO);
 	if ( b ) {
 		*width = w;
 		*height = h;

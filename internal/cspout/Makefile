@@ -1,4 +1,4 @@
-OBJ = CSpout_go.o SpoutDirectX.o SpoutGLDXinterop.o SpoutGLextensions.o SpoutMemoryShare.o SpoutReceiver.o SpoutSDK.o SpoutSender.o SpoutSenderNames.o SpoutSharedMemory.o
+OBJ = cspout_go.o SpoutDirectX.o SpoutGLDXinterop.o SpoutGLextensions.o SpoutMemoryShare.o SpoutReceiver.o SpoutSDK.o SpoutSender.o SpoutSenderNames.o SpoutSharedMemory.o
 
 COPYOBJ = SpoutCopy.o
 

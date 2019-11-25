@@ -13,3 +13,7 @@
 
 # vim temp files
 *.swp
+# C object files
+*.o
+# visual studio code temp file
+__debug_bin

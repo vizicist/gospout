@@ -77,17 +77,13 @@ func main() {
 	cameraUniform := gl.GetUniformLocation(program, gl.Str("camera\x00"))
 	gl.UniformMatrix4fv(cameraUniform, 1, false, &camera[0])
 
-	model := mgl32.Ident4()
-	modelUniform := gl.GetUniformLocation(program, gl.Str("model\x00"))
-	gl.UniformMatrix4fv(modelUniform, 1, false, &model[0])
-
 	textureUniform := gl.GetUniformLocation(program, gl.Str("tex\x00"))
 	gl.Uniform1i(textureUniform, 0)
 
 	redUniform := gl.GetUniformLocation(program, gl.Str("myred\x00"))
-	gl.Uniform1f(redUniform, 1.0)
+	gl.Uniform1f(redUniform, 0.8)
 
-	// gl.BindFragDataLocation(program, 0, gl.Str("outputColor\x00"))
+	gl.BindFragDataLocation(program, 0, gl.Str("outputColor\x00"))
 
 	// Load the texture
 	squaretexture, err := newTexture("square.png")
@@ -95,11 +91,17 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	screentexture, err := newBlankTexture(windowWidth, windowHeight)
+	square3texture, err := newTexture("square3.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	_ = screentexture
+	_ = square3texture
+
+	// screentexture, err := newBlankTexture(windowWidth, windowHeight)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// _ = screentexture
 
 	// Configure the vertex data
 	var vao uint32
@@ -124,47 +126,52 @@ func main() {
 	gl.DepthFunc(gl.LESS)
 	gl.ClearColor(1.0, 1.0, 1.0, 1.0)
 
-	angle := 0.0
-	previousTime := glfw.GetTime()
+	var receiverWidth int
+	var receiverHeight int
 
-	var squareWidth = 512
-	var squareHeight = 512
+	// var sendername = "gosquare"
+	var sendername = "goscreen"
 
-	squareReceiver := gospout.CreateReceiver("gosquare", &squareWidth, &squareHeight, true)
-	_ = squareReceiver
+	receiver := gospout.CreateReceiver(sendername, &receiverWidth, &receiverHeight, false)
+	_ = receiver
 
-	screenSender := gospout.CreateSender("goscreen", windowWidth, windowHeight)
-	_ = screenSender
+	blanktexture, err := newBlankTexture(receiverWidth, receiverHeight)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	for !window.ShouldClose() {
 
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
-		// Update
-		time := glfw.GetTime()
-		elapsed := time - previousTime
-		previousTime = time
-
-		angle += elapsed
-		model = mgl32.HomogRotate3D(float32(angle), mgl32.Vec3{0, 1, 0})
-
 		// Render
 		gl.UseProgram(program)
-		gl.UniformMatrix4fv(modelUniform, 1, false, &model[0])
 
 		gl.BindVertexArray(vao)
 
 		gl.ActiveTexture(gl.TEXTURE0)
 		gl.BindTexture(gl.TEXTURE_2D, squaretexture)
 
-		gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
+		// gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
 
-		// Grab the final output and send it to screenSender
-		gl.BindTexture(gl.TEXTURE_2D, screentexture)
-		gl.CopyTexSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 0, 0, windowWidth, windowHeight)
-		gl.BindTexture(gl.TEXTURE_2D, 0)
+		var w int = receiverWidth
+		var h int = receiverHeight
+		var textureID int = int(blanktexture)
+		var textureTarget = gl.TEXTURE_2D
+		var bInvert = false
+		var hostFBO = 0
 
-		// gospout.SendTexture(squareSender, squaretexture, squareWidth, squareHeight)
+		if receiver {
+			b := gospout.ReceiveTexture(sendername, &w, &h, textureID, textureTarget, bInvert, hostFBO)
+			if !b {
+				receiver = false
+			}
+			// gl.BindTexture(gl.TEXTURE_2D, square3texture)
+			gl.BindTexture(gl.TEXTURE_2D, blanktexture)
+			gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
+		}
+
+		// gospout.SendTexture(squareSender, squaretexture, squareWidth, receiverHeight)
 
 		// gospout.SendTexture(screenSender, screentexture, windowWidth, windowHeight)
 
@@ -299,7 +306,6 @@ var vertexShader = `
 
 uniform mat4 projection;
 uniform mat4 camera;
-uniform mat4 model;
 
 in vec3 vert;
 in vec2 vertTexCoord;
@@ -308,7 +314,7 @@ out vec2 fragTexCoord;
 
 void main() {
     fragTexCoord = vertTexCoord;
-    gl_Position = projection * camera * model * vec4(vert, 1);
+    gl_Position = projection * camera * vec4(vert, 1);
 }
 ` + "\x00"
 
