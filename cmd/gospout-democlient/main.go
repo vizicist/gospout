@@ -1,8 +1,8 @@
 package main
 
-// Renders a textured spinning cube using GLFW 3 and OpenGL.
-// Uses Spout to send out 2 textures named "gosquare" (a static image)
-// and "goscreen" (a rotating cube)
+// Uses Spout to receive a stream called "cube", sent by
+// the other example program - gospout-demoserver -
+// and draws it on the faces of a cube drawn by this program.
 
 import (
 	"fmt"
@@ -109,7 +109,7 @@ func main() {
 	var receiverWidth int
 	var receiverHeight int
 
-	var sendername = "goscreen"
+	var sendername = "cube"
 
 	receiver := gospout.CreateReceiver(sendername, &receiverWidth, &receiverHeight, false)
 	_ = receiver
