@@ -1,5 +1,5 @@
-#include "../../../Spout2/SpoutSDK/Source/SpoutSender.h"
-#include "../../../Spout2/SpoutSDK/Source/SpoutReceiver.h"
+#include "../../Spout2/SpoutSDK/Source/SpoutSender.h"
+#include "../../Spout2/SpoutSDK/Source/SpoutReceiver.h"
 #include <stdlib.h>
 
 extern "C" {
