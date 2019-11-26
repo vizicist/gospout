@@ -17,6 +17,9 @@ SpoutCopy.o : $(SPOUT2SRC)/SpoutCopy.cpp
 	$(CC) -c -msse4.1 $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 clean:
+	-rm -f *.o
+
+clobber:
 	-rm -f *.o *.a
 
 libspout.a: $(OBJ) $(COPYOBJ)
