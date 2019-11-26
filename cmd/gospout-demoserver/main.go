@@ -33,8 +33,6 @@ func init() {
 
 func main() {
 
-	fmt.Println("Config:", gospout.Config())
-
 	if err := glfw.Init(); err != nil {
 		log.Fatalln("failed to initialize glfw:", err)
 	}
@@ -58,8 +56,8 @@ func main() {
 		panic(err)
 	}
 
-	version := gl.GoStr(gl.GetString(gl.VERSION))
-	fmt.Println("OpenGL version", version)
+	// version := gl.GoStr(gl.GetString(gl.VERSION))
+	// fmt.Println("OpenGL version", version)
 
 	// Configure the vertex and fragment shaders
 	program, err := newProgram(vertexShader, fragmentShader)

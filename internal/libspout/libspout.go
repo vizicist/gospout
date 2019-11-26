@@ -1,10 +1,8 @@
-package cspout
+package libspout
 
 // #include <stdlib.h>
 // #include <stdbool.h>
-// #include <cspout_go.h>
-// #cgo CFLAGS: -I/users/tjt/documents/github/gospout/internal/cspout
-// #cgo LDFLAGS: /users/tjt/documents/github/gospout/internal/cspout/libspout.a
+// #cgo LDFLAGS: ${SRCDIR}/libspout.a
 // #cgo LDFLAGS: -lstdc++
 // #cgo LDFLAGS: -lopengl32
 // #cgo LDFLAGS: -ldxgi
@@ -13,6 +11,12 @@ package cspout
 // #cgo LDFLAGS: -lD3D11
 // #cgo LDFLAGS: -lD3D9
 // #cgo LDFLAGS: -lVersion
+// 
+// typedef void* GoSpoutSender;
+// GoSpoutSender GoCreateSender(const char* name, int width, int height);
+// bool GoSendTexture(GoSpoutSender s, unsigned int texture, int width, int height);
+// bool GoCreateReceiver(char* name, unsigned int* width, unsigned int* height, bool bUseActive);
+// bool GoReceiveTexture(char* name, unsigned int* width, unsigned int *height, int textureID, int textureTarget, bool bInvert, int hostFBO);
 import "C"
 import (
         "unsafe"

@@ -1,10 +1,10 @@
-#include "CSpout_go.h"
-#include "c:/Users/tjt/Documents/github/Spout2/SpoutSDK/Source/SpoutSender.h"
-#include "c:/Users/tjt/Documents/github/Spout2/SpoutSDK/Source/SpoutReceiver.h"
+#include "../../../Spout2/SpoutSDK/Source/SpoutSender.h"
+#include "../../../Spout2/SpoutSDK/Source/SpoutReceiver.h"
 #include <stdlib.h>
 
 extern "C" {
 
+typedef void* GoSpoutSender;
 SpoutReceiver r;
 
 GoSpoutSender GoCreateSender(const char* sendername, int width, int height) {
