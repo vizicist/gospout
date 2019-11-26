@@ -1,14 +1,17 @@
 package main
 
-// Renders a textured spinning cube using GLFW 3 and OpenGL.
-// Uses Spout to send out 2 textures named "gosquare" (a static image)
-// and "goscreen" (a rotating cube)
+// Demo program which sends out 2 streams using Spout, named:
+//
+//     "cube" - a spinning cube
+//     "square" - a square image
 
 import (
+	"bytes"
 	"fmt"
 	"image"
 	"image/draw"
 	_ "image/png"
+	"io"
 	"log"
 	"os"
 	"runtime"
@@ -87,8 +90,17 @@ func main() {
 
 	// gl.BindFragDataLocation(program, 0, gl.Str("outputColor\x00"))
 
-	// Load the texture
-	squaretexture, err := newTexture("square.png")
+	// squaretexture, err := newTexture("square.png")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+
+	squarebytes, err := squarePngBytes()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	squareReader := bytes.NewBuffer(squarebytes)
+	squaretexture, err := newTextureFromReader(squareReader)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -128,10 +140,10 @@ func main() {
 	var squareWidth = 512
 	var squareHeight = 512
 
-	squareSender := gospout.CreateSender("gosquare", squareWidth, squareHeight)
+	squareSender := gospout.CreateSender("square", squareWidth, squareHeight)
 	_ = squareSender
 
-	screenSender := gospout.CreateSender("goscreen", windowWidth, windowHeight)
+	screenSender := gospout.CreateSender("cube", windowWidth, windowHeight)
 	_ = screenSender
 
 	for !window.ShouldClose() {
@@ -235,7 +247,12 @@ func newTexture(file string) (uint32, error) {
 	if err != nil {
 		return 0, fmt.Errorf("texture %q not found on disk: %v", file, err)
 	}
-	img, _, err := image.Decode(imgFile)
+	return newTextureFromReader(imgFile)
+}
+
+func newTextureFromReader(reader io.Reader) (uint32, error) {
+
+	img, _, err := image.Decode(reader)
 	if err != nil {
 		return 0, err
 	}
@@ -315,7 +332,7 @@ var fragmentShader = `
 
 uniform sampler2D tex;
 
-uniform float myred = 0.4;
+uniform float myred = 1.0;
 
 in vec2 fragTexCoord;
 
