@@ -2,7 +2,7 @@ OBJ = libspout_go.o SpoutDirectX.o SpoutGLDXinterop.o SpoutGLextensions.o SpoutM
 
 CC = g++
 
-SPOUT2 = ../../../Spout2
+SPOUT2 = ../../../../leadedge/Spout2
 SPOUT2SRC = $(SPOUT2)/SpoutSDK/Source
 
 default: libspout.a
