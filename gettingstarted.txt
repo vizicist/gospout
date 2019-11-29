@@ -48,7 +48,8 @@ Notes on bringing up a brand new PC for Spout development with Go.
     cmd/gospout-demoserver/gospout-demoserver.exe
     cmd/gospout-demoserver/gospout-democlient.exe
 
-- From the windows explorer, execute gospout-demoserver.exe, and then gospout-democlient.exe.
+- From the windows file explorer (and NOT from a bash shell),
+    execute gospout-demoserver.exe, and then gospout-democlient.exe.
     You should see one window with a big spinning cube, and another window with a cube
     whose faces are that spinning cube, received from the first windows via Spout.
 
