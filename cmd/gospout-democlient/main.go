@@ -109,17 +109,26 @@ func main() {
 	var receiverWidth int
 	var receiverHeight int
 
-	var sendername = "cube"
+	sendername := "cube"
 
-	receiver := gospout.CreateReceiver(sendername, &receiverWidth, &receiverHeight, false)
-	_ = receiver
+	receiver := false
 
-	blanktexture, err := newBlankTexture(receiverWidth, receiverHeight)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	var receivedTexture uint32
 
 	for !window.ShouldClose() {
+
+		if !receiver {
+			receiver = gospout.CreateReceiver(sendername, &receiverWidth, &receiverHeight, false)
+			if receiver {
+				// The Texture shouldn't be created until after we have successfully
+				// created the receiver.
+				receivedTexture, err = newBlankTexture(receiverWidth, receiverHeight)
+				if err != nil {
+					log.Fatalln(err)
+				}
+			}
+
+		}
 
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
@@ -130,7 +139,7 @@ func main() {
 
 		var w int = receiverWidth
 		var h int = receiverHeight
-		var textureID int = int(blanktexture)
+		var textureID int = int(receivedTexture)
 		var textureTarget = gl.TEXTURE_2D
 		var bInvert = false
 		var hostFBO = 0
@@ -141,7 +150,7 @@ func main() {
 				receiver = false
 			}
 			gl.ActiveTexture(gl.TEXTURE0)
-			gl.BindTexture(gl.TEXTURE_2D, blanktexture)
+			gl.BindTexture(gl.TEXTURE_2D, receivedTexture)
 			gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
 		}
 

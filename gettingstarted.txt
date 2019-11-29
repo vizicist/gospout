@@ -1,0 +1,46 @@
+Notes on bringing up a brand new PC for Spout development with Go.
+
+- install vim from https://www.vim.org
+
+- install git from https://gitforwindows.org
+
+- instal Go version 1.13 or later from https://golang.org/dl/
+
+- install visual studio code from https://code.visualstudio.com/download
+
+- install mingw64 using this installer:
+
+    https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe
+
+    *** BE SURE TO USE THESE SETTINGS WHEN INSTALLING mingw64 ***
+    Version: 8.1.0
+    Architecture: x86_64
+    Threads: posix
+    Exception: sjlj
+
+- add this directory to your PATH (in System Properties):
+    C:\Program Files\mingw-w64\x86_64-8.1.0-posix-sjlj-rt_v6-rev0\mingw64\bin
+
+- in Visual Studio Code, in the "extensions" section on the left side,
+    type in "@builtin git" and make sure the Git SCM Integration is enabled.
+
+- in Visual Studio Code, press shift-control-P to get the command palette,
+    then use "Git: Clone" to clone the following repos into a Documents/Github/vizicist folder:
+
+        https://github.com/vizicist/gospout.git
+
+    and clone the following repo into Documents/Github/leadedge folder:
+
+        https://github.com/leadedge/Spout2.git
+
+- in a Git bash shell, run:
+
+    cd $HOME/Documents/Github/vizicist/gospout
+    ./makeall.sh
+
+- At that point, it should have compiled these programs:
+
+    cmd/gospout-demoserver/gospout-demoserver.exe
+    cmd/gospout-demoserver/gospout-demoserver.exe
+
+- Rrom the windows explorer, execute
