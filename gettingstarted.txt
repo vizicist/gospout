@@ -21,8 +21,9 @@ Notes on bringing up a brand new PC for Spout development with Go.
 - add this directory to your PATH (in System Properties):
     C:\Program Files\mingw-w64\x86_64-8.1.0-posix-sjlj-rt_v6-rev0\mingw64\bin
 
-- in Visual Studio Code, in the "extensions" section on the left side,
-    type in "@builtin git" and make sure the Git SCM Integration is enabled.
+- in Visual Studio Code, in the "extensions marketplace" section on the left side,
+    type in "go" and install the Rich Go language support.
+    Also, type in "@builtin git" and make sure the Git SCM Integration is enabled.
 
 - in Visual Studio Code, press shift-control-P to get the command palette,
     then use "Git: Clone" to clone the following repos into a Documents/Github/vizicist folder:
@@ -41,6 +42,8 @@ Notes on bringing up a brand new PC for Spout development with Go.
 - At that point, it should have compiled these programs:
 
     cmd/gospout-demoserver/gospout-demoserver.exe
-    cmd/gospout-demoserver/gospout-demoserver.exe
+    cmd/gospout-demoserver/gospout-democlient.exe
 
-- Rrom the windows explorer, execute
+- From the windows explorer, execute gospout-demoserver.exe, and then gospout-democlient.exe.
+    You should see one window with a big spinning cube, and another window with a cube
+    whose faces are that spinning cube, received from the first windows via Spout.

@@ -15,5 +15,7 @@
 *.swp
 # C object files
 *.o
+# archive
+*.a
 # visual studio code temp file
 __debug_bin
