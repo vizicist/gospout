@@ -1,6 +1,5 @@
 Notes on bringing up a brand new PC for Spout development with Go.
-
-- install vim from https://www.vim.org
+==================================================================
 
 - install git from https://gitforwindows.org
 
@@ -26,13 +25,18 @@ Notes on bringing up a brand new PC for Spout development with Go.
     Also, type in "@builtin git" and make sure the Git SCM Integration is enabled.
 
 - in Visual Studio Code, press shift-control-P to get the command palette,
-    then use "Git: Clone" to clone the following repos into a Documents/Github/vizicist folder:
+    then use "Git: Clone" to clone the following repos into a Documents/github/vizicist folder:
 
         https://github.com/vizicist/gospout.git
 
     and clone the following repo into Documents/Github/leadedge folder:
 
         https://github.com/leadedge/Spout2.git
+
+    The directory tree under Documents at that point should look like:
+
+        github/leadedge/Spout2
+        github/vizicist/gospout
 
 - in a Git bash shell, run:
 
@@ -47,3 +51,5 @@ Notes on bringing up a brand new PC for Spout development with Go.
 - From the windows explorer, execute gospout-demoserver.exe, and then gospout-democlient.exe.
     You should see one window with a big spinning cube, and another window with a cube
     whose faces are that spinning cube, received from the first windows via Spout.
+
+Any questions, email me@timthompson.com
