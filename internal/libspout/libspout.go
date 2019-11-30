@@ -2,6 +2,7 @@ package libspout
 
 // #include <stdlib.h>
 // #include <stdbool.h>
+// #cgo CPPFLAGS: -I${SRCDIR}/../../../../leadedge/Spout2/SpoutSDK/Source
 // #cgo LDFLAGS: ${SRCDIR}/libspout.a
 // #cgo LDFLAGS: -lstdc++
 // #cgo LDFLAGS: -lopengl32
