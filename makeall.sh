@@ -8,12 +8,12 @@ go build
 go install
 cd ../..
 
-echo "=========== Making gospout-democlient"
-cd cmd/gospout-democlient
+echo "=========== Making gospout-client"
+cd cmd/gospout-client
 go build
 cd ../..
 
-echo "=========== Making gospout-demoserver"
-cd cmd/gospout-demoserver
+echo "=========== Making gospout-server"
+cd cmd/gospout-server
 go build
 cd ../..

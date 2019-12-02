@@ -18,6 +18,7 @@ package libspout
 // bool GoSendTexture(GoSpoutSender s, unsigned int texture, int width, int height);
 // bool GoCreateReceiver(char* name, unsigned int* width, unsigned int* height, bool bUseActive);
 // bool GoReceiveTexture(char* name, unsigned int* width, unsigned int *height, int textureID, int textureTarget, bool bInvert, int hostFBO);
+// void GoReleaseReceiver();
 import "C"
 import (
         "unsafe"
@@ -57,6 +58,11 @@ func CreateReceiver(sendername string, width *int, height *int, bUseActive bool)
         *height = int(h)
         var b bool = bool(cb)
         return b
+}
+
+// ReleaseReceiver releases a receiver
+func ReleaseReceiver() {
+        C.GoReleaseReceiver()
 }
 
 // ReceiveTexture creates a receiver

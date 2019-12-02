@@ -32,6 +32,11 @@ func CreateReceiver(sendername string, width *int, height *int, bUseActive bool)
 	return b
 }
 
+// ReleaseReceiver releases things
+func ReleaseReceiver() {
+	libspout.ReleaseReceiver()
+}
+
 // ReceiveTexture receives a texture
 func ReceiveTexture(sendername string, width *int, height *int, textureID int, textureTarget int, bInvert bool, hostFBO int) bool {
 	b := libspout.ReceiveTexture(sendername, width, height, textureID, textureTarget, bInvert, hostFBO)

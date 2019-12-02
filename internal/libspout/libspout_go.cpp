@@ -31,6 +31,10 @@ bool GoCreateReceiver(char* sendername, unsigned int* width, unsigned int *heigh
 	return b;
 }
 
+void GoReleaseReceiver() {
+	r.ReleaseReceiver();
+}
+
 bool GoReceiveTexture(char* sendername, unsigned int* width, unsigned int *height, int textureID, int textureTarget, bool bInvert, int hostFBO) {
 	bool b;
 	unsigned int w = *width;

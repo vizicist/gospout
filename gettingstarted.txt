@@ -45,12 +45,13 @@ Notes on bringing up a brand new PC for Spout development with Go.
 
 - At that point, it should have compiled these programs:
 
-    cmd/gospout-demoserver/gospout-demoserver.exe
-    cmd/gospout-demoserver/gospout-democlient.exe
+    cmd/gospout-server/gospout-server.exe
+    cmd/gospout-client/gospout-client.exe
 
 - From the windows file explorer (and NOT from a bash shell),
-    execute gospout-demoserver.exe, and then gospout-democlient.exe.
-    You should see one window with a big spinning cube, and another window with a cube
-    whose faces are that spinning cube, received from the first windows via Spout.
+    execute gospout-server.exe, and then gospout-client.exe.
+    You should see one window with a big spinning cube,
+    and another window with that spinning cube,
+    received from the first windows via Spout.
 
 Any questions, email me@timthompson.com
